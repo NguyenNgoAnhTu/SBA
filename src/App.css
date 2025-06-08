@@ -1,5 +1,9 @@
+@import "tailwindcss";
+/*
+  This file is intentionally left blank.
+  Please use Tailwind CSS utility classes directly in your components for styling.
+*/
 #root {
-  max-width: 1280px;
   margin: 0 auto;
   padding: 2rem;
   text-align: center;

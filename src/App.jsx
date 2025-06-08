@@ -7,6 +7,7 @@ import NavBar from './components/NavBar';
 import ListOfEmployees from './components/ListOfEmployees';
 import DetailOrchid from './components/DetailOrchid';
 import Login from './components/Login';
+import Register from './components/Register';
 function App() {
  
   return (
@@ -19,6 +20,7 @@ function App() {
       <Route path='/detail/:id' element={<DetailOrchid/>}/>
       <Route path='/edit/:id' element={<EditOrchid/>}/>
       <Route path= '/login'  element={<Login/>}/>
+      <Route path= '/register'  element={<Register/>}/>
     </Routes>
     </>
   )

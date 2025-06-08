@@ -1,6 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import Container from 'react-bootstrap/esm/Container';
-import { Button, Col, Form, FormGroup, Image, Row } from 'react-bootstrap';
 import axios from 'axios';
 import toast, { Toaster } from 'react-hot-toast';
 import { Controller, useForm } from "react-hook-form";
@@ -11,7 +9,6 @@ export default function EditOrchid() {
   const { id } = useParams();
   const navigate = useNavigate();
   const [api, setAPI] = useState({});
-  
   const { register, handleSubmit, formState: { errors }, control, setValue } = useForm();
 
   useEffect(() => {
@@ -45,54 +42,46 @@ export default function EditOrchid() {
   };
 
   return (
-    <Container>
+    <div className="max-w-4xl mx-auto p-4">
       <Toaster />
-      <Row>
-        <p className="lead text-primary">Edit the orchid: {api.orchidName}</p>
-        <hr />
-        <Col md={8}>
-          <form onSubmit={handleSubmit(onSubmit)}>
-            <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-              <Form.Label>Name</Form.Label>
+      <div className="mb-4 text-indigo-700 font-semibold text-lg">Edit the orchid: {api.orchidName}</div>
+      <hr className="mb-6" />
+      <div className="flex flex-col md:flex-row gap-8">
+        <div className="flex-1">
+          <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1">Name</label>
               <Controller
                 name="orchidName"
                 control={control}
                 rules={{ required: true }}
-                render={({ field }) => <Form.Control {...field} type="text" />}
+                render={({ field }) => <input {...field} type="text" className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-indigo-400" />}
               />
-              {errors.orchidName && errors.orchidName.type === "required" && <p className="text-warning">Name is required</p>}
-            </Form.Group>
-
-            <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
-              <Form.Label>Image</Form.Label>
+              {errors.orchidName && errors.orchidName.type === "required" && <p className="text-yellow-600 text-xs mt-1">Name is required</p>}
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1">Image</label>
               <Controller
                 name="image"
                 control={control}
-                rules={{ required: true, pattern: /(https?:\/\/[^\s]+)/i }}
-                render={({ field }) => <Form.Control {...field} type="text" />}
+                rules={{ required: true, pattern: /(https?:\/\/[^"]+)/i }}
+                render={({ field }) => <input {...field} type="text" className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-indigo-400" />}
               />
-              {errors.image && errors.image.type === "pattern" && <p className="text-warning">Image must be a valid URL</p>}
-            </Form.Group>
-
-            <FormGroup>
-              <Form.Check
-                type="switch"
-                id="custom-switch"
-                label="Natural"
-                {...register("isNatural")}
-              />
-            </FormGroup>
-
-            <Button variant="primary" type="submit">
-              Save
-            </Button>
+              {errors.image && errors.image.type === "pattern" && <p className="text-yellow-600 text-xs mt-1">Image must be a valid URL</p>}
+            </div>
+            <div className="flex items-center gap-2">
+              <input type="checkbox" id="isNatural" {...register("isNatural")}/>
+              <label htmlFor="isNatural" className="text-sm text-gray-700">Natural</label>
+            </div>
+            <button type="submit" className="px-6 py-2 bg-indigo-600 text-white rounded hover:bg-indigo-700">Save</button>
           </form>
-        </Col>
-
-        <Col md={4}>
-          <Image src={api.image} width={240} thumbnail className='shadow-lg p-3 mb-5 bg-body-tertiary rounded' />
-        </Col>
-      </Row>
-    </Container>
+        </div>
+        <div className="flex-1 flex flex-col items-center justify-center">
+          {api.image && (
+            <img src={api.image} alt="orchid" className="w-60 h-60 object-cover rounded shadow-lg mb-4" />
+          )}
+        </div>
+      </div>
+    </div>
   );
 }
