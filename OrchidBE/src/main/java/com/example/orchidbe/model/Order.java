@@ -14,7 +14,7 @@ public class Order {
     @Id
     @GeneratedValue(strategy = jakarta.persistence.GenerationType.IDENTITY)
     @Column(name="order_id", nullable = false, unique = true)
-    private int orderId;
+    private Long orderId;
     @Column(name="order_date", nullable = false)
     private String orderDate;
     @Column(name="orderStatus", nullable = false)
