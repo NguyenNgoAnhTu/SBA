@@ -5,8 +5,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-@NoArgsConstructor
-@AllArgsConstructor
 public class OrderDetailDTO {
     public static class OrderDetailResponse {
         private Long id;

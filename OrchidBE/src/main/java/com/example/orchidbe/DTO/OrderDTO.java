@@ -4,10 +4,9 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
+
 public class OrderDTO {
+    @Data
     public static class OrderResponse {
         private Long id;
         private String orderDate;
@@ -16,7 +15,7 @@ public class OrderDTO {
         private String customerEmail;
         private String shippingAddress;
     }
-
+    @Data
     public static class OrderRequest {
         private String orderDate;
         private String status;
