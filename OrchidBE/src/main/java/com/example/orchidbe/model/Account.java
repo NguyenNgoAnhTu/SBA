@@ -3,6 +3,7 @@ package com.example.orchidbe.model;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -14,13 +15,14 @@ import java.util.List;
 @AllArgsConstructor
 @Entity
 @Builder
+@Data
 @Table(name="accounts")
 public class Account implements UserDetails {
     @Id
     @GeneratedValue(strategy = jakarta.persistence.GenerationType.IDENTITY)
     @Column(name="account_id")
     private Long accountId;
-    @Column(name="account_name", nullable = false)
+    @Column(name="account_name", nullable = false, unique = true)
     private String accountName;
     @Column(name="email",nullable = false, unique = true)
     private String email;
