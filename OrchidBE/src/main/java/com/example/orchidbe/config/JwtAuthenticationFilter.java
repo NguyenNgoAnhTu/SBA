@@ -23,11 +23,6 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     private final HandlerExceptionResolver handlerExceptionResolver;
     private final JwtService jwtService;
     private final UserDetailsService userDetailsService;
-//    public JwtAuthenticationFilter(HandlerExceptionResolver handlerExceptionResolver, JwtService jwtService, UserDetailsService userDetailsService) {
-//        this.handlerExceptionResolver = handlerExceptionResolver;
-//        this.jwtService = jwtService;
-//        this.userDetailsService = userDetailsService;
-//    }
     @Override
     protected void doFilterInternal(
             @NotNull HttpServletRequest request,
@@ -57,5 +52,14 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         }
 
     }
+//    @Override
+//    protected boolean shouldNotFilter(HttpServletRequest request) {
+//        String path = request.getRequestURI();
+//        return path.startsWith("/swagger-ui/") ||
+//                path.startsWith("/v3/api-docs") ||
+//                path.startsWith("/api-docs") ||
+//                path.startsWith("/swagger-resources") ||
+//                path.equals("/swagger-ui.html");
+//    }
 
 }
