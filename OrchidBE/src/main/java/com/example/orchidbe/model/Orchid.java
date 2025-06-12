@@ -9,7 +9,7 @@ import lombok.Data;
 public class Orchid {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int orchidId;
+    private Long orchidId;
     @Column(name="is_natural", nullable = false)
     private boolean isNatural;
     @Column(name="orchid_decription", nullable = false)
