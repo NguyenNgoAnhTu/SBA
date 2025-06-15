@@ -1,10 +1,16 @@
 package com.example.orchidbe.model;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Data
+@NoArgsConstructor
+@Builder
+@AllArgsConstructor
 @Table(name="orchids")
 public class Orchid {
     @Id
