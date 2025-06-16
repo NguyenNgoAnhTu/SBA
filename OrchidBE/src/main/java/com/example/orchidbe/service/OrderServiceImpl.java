@@ -1,13 +1,17 @@
 package com.example.orchidbe.service;
 
 import com.example.orchidbe.DTO.OrderDTO;
+import com.example.orchidbe.repository.OrderRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
-
+@RequiredArgsConstructor
 public class OrderServiceImpl implements OrderService {
+    private OrderRepository orderRepository;
+
     @Override
     public OrderDTO.OrderResponse createOrder(OrderDTO.OrderRequest order) {
         return null;

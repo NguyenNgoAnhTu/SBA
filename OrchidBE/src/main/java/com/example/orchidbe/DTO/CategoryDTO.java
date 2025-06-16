@@ -11,8 +11,8 @@ public class CategoryDTO {
         private String name;
         private String description;
     }
+    @Data
     public static class CategoryRequest {
         private String name;
-        private String description;
     }
 }
