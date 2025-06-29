@@ -15,7 +15,6 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/v1/orchids")
 @RequiredArgsConstructor
-@CrossOrigin(origins = "*")
 public class OrchidController {
 
     private final OrchidService orchidService;
