@@ -1,41 +1,47 @@
+
 package com.example.orchidbe.model;
 
-import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.DBRef;
+import org.springframework.data.mongodb.core.mapping.Field;
+import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
+
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity
+@Document(collection = "accounts")
 @Builder
 @Data
-@Table(name="accounts")
 public class Account implements UserDetails {
     @Id
-    @GeneratedValue(strategy = jakarta.persistence.GenerationType.IDENTITY)
-    @Column(name="account_id")
-    private Long accountId;
-    @Column(name="account_name", nullable = false, unique = true)
+    private String accountId; // MongoDB sử dụng String cho ObjectId
+
+    @Field("account_name")
+    @Indexed(unique = true)
     private String accountName;
-    @Column(name="email",nullable = false, unique = true)
+
+    @Field("email")
+    @Indexed(unique = true)
     private String email;
-    @Column(name="password", nullable = false)
+
+    @Field("password")
     private String password;
 
-    @ManyToOne
-    @JoinColumn(name = "role_id", nullable = false)
-    private Role role;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of(new SimpleGrantedAuthority(role.getRoleName()));
+        return List.of();
     }
 
     @Override
@@ -50,7 +56,7 @@ public class Account implements UserDetails {
 
     @Override
     public boolean isAccountNonExpired() {
-        return UserDetails.super.isAccountNonExpired();
+        return true;
     }
 
     @Override

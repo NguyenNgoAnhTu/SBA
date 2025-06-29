@@ -19,7 +19,7 @@ public class OrderDetailController {
     private final OrderDetailService orderDetailService;
 
     @GetMapping("/{id}")
-    public ResponseEntity<?> getOrderDetailById(@PathVariable Long id) {
+    public ResponseEntity<?> getOrderDetailById(@PathVariable String id) {
         try {
             var orderDetail = orderDetailService.getOrderDetailById(id);
             return ResponseEntity.ok(orderDetail);
@@ -41,7 +41,7 @@ public class OrderDetailController {
     }
 
     @GetMapping("/order/{orderId}")
-    public ResponseEntity<?> getOrderDetailsByOrderId(@PathVariable Long orderId) {
+    public ResponseEntity<?> getOrderDetailsByOrderId(@PathVariable String orderId) {
         try {
             var orderDetails = orderDetailService.getOrderDetailsByOrderId(orderId);
             return ResponseEntity.ok(orderDetails);
@@ -72,7 +72,7 @@ public class OrderDetailController {
 
     @PutMapping("/{id}")
     public ResponseEntity<?> updateOrderDetail(
-            @PathVariable Long id,
+            @PathVariable String id,
             @Valid @RequestBody OrderDetailDTO.OrderDetailRequest orderDetailRequest,
             BindingResult bindingResult) {
 
@@ -91,7 +91,7 @@ public class OrderDetailController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> deleteOrderDetail(@PathVariable Long id) {
+    public ResponseEntity<?> deleteOrderDetail(@PathVariable String id) {
         try {
             orderDetailService.deleteOrderDetail(id);
             return ResponseEntity.ok("Order detail deleted successfully");

@@ -18,17 +18,17 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public OrderDTO.OrderResponse getOrderById(Long id) {
+    public OrderDTO.OrderResponse getOrderById(String id) {
         return null;
     }
 
     @Override
-    public OrderDTO.OrderResponse updateOrder(Long id, OrderDTO.OrderRequest order) {
+    public OrderDTO.OrderResponse updateOrder(String id, OrderDTO.OrderRequest order) {
         return null;
     }
 
     @Override
-    public void deleteOrder(Long id) {
+    public void deleteOrder(String id) {
 
     }
 

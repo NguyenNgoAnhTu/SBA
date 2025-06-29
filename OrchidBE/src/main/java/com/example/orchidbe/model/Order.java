@@ -1,36 +1,35 @@
 package com.example.orchidbe.model;
 
-import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.DBRef;
+import org.springframework.data.mongodb.core.mapping.Field;
 
-@Entity
+import java.time.LocalDateTime;
+import java.util.List;
+
+@Document(collection = "orders")
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "orders")
+@Builder
+@AllArgsConstructor
 public class Order {
     @Id
-    @GeneratedValue(strategy = jakarta.persistence.GenerationType.IDENTITY)
-    @Column(name="order_id", nullable = false, unique = true)
-    private Long orderId;
-    @Column(name="order_date", nullable = false)
-    private String orderDate;
-    @Column(name="orderStatus", nullable = false)
-    @Enumerated(EnumType.ORDINAL)
-    private OrderStatus orderStatus;
-    @Column(name="total_amount", nullable = false)
-    private String totalAmount;
+    private String orderId;
 
-    @ManyToOne
-    @JoinColumn(name = "account_id", nullable = false)
-    private Account account;
+    @Field("order_date")
+    private LocalDateTime orderDate;
 
-    enum OrderStatus {
-        PENDING,
-        PROCESSING,
-        CANCELLED,
-        COMPLETED,
-    }
+    @Field("total_amount")
+    private double totalAmount;
+
+    @Field("status")
+    private String status;
+
+
+    // Nếu có OrderDetail như một embedded document
 }

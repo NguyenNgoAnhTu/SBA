@@ -22,8 +22,8 @@ public class OrchidServiceImpl implements OrchidService{
                 .orchidDecription(orchidRequest.getDescription())
                 .price(orchidRequest.getPrice())
                 .orchidUrl(orchidRequest.getImageUrl())
-                .category(categoryRepository.findById(orchidRequest.getCategoryId())
-                        .orElseThrow(() -> new RuntimeException("Category not found with id: " + orchidRequest.getCategoryId())))
+           //     .category(categoryRepository.findById(String.valueOf(orchidRequest.getCategoryId()))
+                       // .orElseThrow(() -> new RuntimeException("Category not found with id: " + orchidRequest.getCategoryId())))
                 .build();
 
         Orchid savedOrchid = orchidRepository.save(orchid);
@@ -32,7 +32,7 @@ public class OrchidServiceImpl implements OrchidService{
     }
 
     @Override
-    public OrchidDTO.OrchidResponse getOrchidById(Long id) {
+    public OrchidDTO.OrchidResponse getOrchidById(String id) {
         Orchid orchid = orchidRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Orchid not found with id: " + id));
         return modelMapper.map(orchid, OrchidDTO.OrchidResponse.class);
@@ -45,23 +45,23 @@ public class OrchidServiceImpl implements OrchidService{
     }
 
     @Override
-    public OrchidDTO.OrchidResponse updateOrchid(Long id, OrchidDTO.OrchidRequest orchidRequest) {
+    public OrchidDTO.OrchidResponse updateOrchid(String id, OrchidDTO.OrchidRequest orchidRequest) {
         Orchid orchid = orchidRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Orchid not found with id: " + id));
         orchid.setOrchidName(orchidRequest.getName());
         orchid.setOrchidDecription(orchidRequest.getDescription());
         orchid.setPrice(orchidRequest.getPrice());
         orchid.setOrchidUrl(orchidRequest.getImageUrl());
-        orchid.setCategory(categoryRepository.findById(orchidRequest.getCategoryId())
-                .orElseThrow(() -> new RuntimeException("Category not found with id: " + orchidRequest.getCategoryId()))
-        );
+//orchid.setCategory(categoryRepository.findById(orchidRequest.getCategoryId())
+               // .orElseThrow(() -> new RuntimeException("Category not found with id: " + orchidRequest.getCategoryId()))
+        //);
         Orchid updatedOrchid = orchidRepository.save(orchid);
 
         return modelMapper.map(updatedOrchid, OrchidDTO.OrchidResponse.class);
     }
 
     @Override
-    public void deleteOrchid(Long id) {
+    public void deleteOrchid(String id) {
         if (!orchidRepository.existsById(id)) {
             throw new RuntimeException("Orchid not found with id: " + id);
         }
@@ -70,7 +70,7 @@ public class OrchidServiceImpl implements OrchidService{
     }
 
     @Override
-    public List<OrchidDTO.OrchidResponse> getOrchidsByCategory(Long categoryId) {
+    public List<OrchidDTO.OrchidResponse> getOrchidsByCategory(String categoryId) {
         return List.of();
     }
 }

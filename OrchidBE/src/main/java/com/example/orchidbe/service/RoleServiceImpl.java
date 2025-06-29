@@ -21,7 +21,7 @@ public class RoleServiceImpl implements RoleService {
 
 
     @Override
-    public RoleDTO.RoleResponse getRole(Long id) {
+    public RoleDTO.RoleResponse getRole(String id) {
         Role role = roleRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Role not found with id: " + id));
         return modelMapper.map(role, RoleDTO.RoleResponse.class);
@@ -43,7 +43,7 @@ public class RoleServiceImpl implements RoleService {
                 .collect(Collectors.toList());    }
 
     @Override
-    public RoleDTO.RoleResponse updateRole(Long id, RoleDTO.RoleRequest roleRequest) {
+    public RoleDTO.RoleResponse updateRole(String id, RoleDTO.RoleRequest roleRequest) {
         if (!roleRepository.existsById(id)) {
             throw new EntityExistsException("Role not found with id: " + id);
         }
@@ -54,7 +54,7 @@ public class RoleServiceImpl implements RoleService {
     }
 
     @Override
-    public void deleteRole(Long id) {
+    public void deleteRole(String id) {
         if (!roleRepository.existsById(id)) {
             throw new EntityExistsException("Role not found with id: " + id);
         }

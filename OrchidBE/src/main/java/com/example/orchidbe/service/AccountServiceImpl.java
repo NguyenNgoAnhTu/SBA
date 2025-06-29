@@ -13,7 +13,6 @@ import org.springframework.stereotype.Service;
 import javax.security.auth.login.AccountNotFoundException;
 import java.util.List;
 import java.util.stream.Collectors;
-
 @Service
 public class AccountServiceImpl  implements AccountService {
 
@@ -26,7 +25,7 @@ public class AccountServiceImpl  implements AccountService {
 
 
     @Override
-    public AccountDTO.AccountResponse getAccount(Long id) {
+    public AccountDTO.AccountResponse getAccount(String id) {
         Account account = accountRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Account not found by id" + id));
         return modelMapper.map(account, AccountDTO.AccountResponse.class);
@@ -44,12 +43,12 @@ public class AccountServiceImpl  implements AccountService {
     }
 
     @Override
-    public AccountDTO.AccountResponse updateAccount(Long id, AccountDTO.AccountRequest accountRequest) {
+    public AccountDTO.AccountResponse updateAccount(String id, AccountDTO.AccountRequest accountRequest) {
         return null;
     }
 
     @Override
-    public void deleteAccount(Long id) {
+    public void deleteAccount(String id) {
 
     }
 

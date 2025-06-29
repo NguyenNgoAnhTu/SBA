@@ -6,10 +6,10 @@ import java.util.List;
 
 public interface OrderDetailService {
     OrderDetailDTO.OrderDetailResponse createOrderDetail(OrderDetailDTO.OrderDetailRequest orderDetailRequest);
-    OrderDetailDTO.OrderDetailResponse getOrderDetailById(Long id);
-    OrderDetailDTO.OrderDetailResponse getOrderDetail(Long orderId);
+    OrderDetailDTO.OrderDetailResponse getOrderDetailById(String id);
+    OrderDetailDTO.OrderDetailResponse getOrderDetail(String orderId);
     List<OrderDetailDTO.OrderDetailResponse> getAllOrderDetails();
-    OrderDetailDTO.OrderDetailResponse updateOrderDetail(Long id, OrderDetailDTO.OrderDetailRequest orderDetailRequest);
-    void deleteOrderDetail(Long id);
-    List<OrderDetailDTO.OrderDetailResponse> getOrderDetailsByOrderId(Long orderId);
+    OrderDetailDTO.OrderDetailResponse updateOrderDetail(String id, OrderDetailDTO.OrderDetailRequest orderDetailRequest);
+    void deleteOrderDetail(String id);
+    List<OrderDetailDTO.OrderDetailResponse> getOrderDetailsByOrderId(String orderId);
 }

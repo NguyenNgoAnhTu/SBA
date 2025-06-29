@@ -19,7 +19,7 @@ public class OrderController {
     private final OrderService orderService;
 
     @GetMapping("/{id}")
-    public ResponseEntity<?> getOrderById(@PathVariable Long id) {
+    public ResponseEntity<?> getOrderById(@PathVariable String id) {
         try {
             var order = orderService.getOrderById(id);
             return ResponseEntity.ok(order);
@@ -61,7 +61,7 @@ public class OrderController {
 
     @PutMapping("/{id}")
     public ResponseEntity<?> updateOrder(
-            @PathVariable Long id,
+            @PathVariable String id,
             @Valid @RequestBody OrderDTO.OrderRequest orderRequest,
             BindingResult bindingResult) {
 
@@ -80,7 +80,7 @@ public class OrderController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> deleteOrder(@PathVariable Long id) {
+    public ResponseEntity<?> deleteOrder(@PathVariable String id) {
         try {
             orderService.deleteOrder(id);
             return ResponseEntity.ok("Order deleted successfully");

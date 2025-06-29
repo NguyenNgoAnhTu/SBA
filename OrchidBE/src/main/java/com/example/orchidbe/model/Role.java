@@ -1,22 +1,22 @@
 package com.example.orchidbe.model;
 
-import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.Field;
+import org.springframework.data.mongodb.core.index.Indexed;
 
-@Entity
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
-@Table(name ="roles")
+@NoArgsConstructor
+@Document(collection = "roles")
 public class Role {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long roleId;
-    @Column(name="role_name", nullable = false, unique = true)
+    private String roleId;
+
+    @Field("role_name")
+    @Indexed(unique = true)
     private String roleName;
-
-
-
 }

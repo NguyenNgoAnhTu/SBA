@@ -20,7 +20,7 @@ public class RoleController {
     private RoleService roleService;
 
     @GetMapping("/{id}")
-    public ResponseEntity<?> getRoleById(@PathVariable Long id) {
+    public ResponseEntity<?> getRoleById(@PathVariable String id) {
         try {
             RoleDTO.RoleResponse role = roleService.getRole(id);
             return ResponseEntity.ok(role);
@@ -51,7 +51,7 @@ public class RoleController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<?> updateRole(@PathVariable Long id,
+    public ResponseEntity<?> updateRole(@PathVariable String id,
                                         @Valid @RequestBody RoleDTO.RoleRequest roleRequest,
                                         BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
@@ -71,7 +71,7 @@ public class RoleController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> deleteRole(@PathVariable Long id) {
+    public ResponseEntity<?> deleteRole(@PathVariable String id) {
         try {
             roleService.deleteRole(id);
             return ResponseEntity.ok(Map.of("message", "Role deleted successfully"));

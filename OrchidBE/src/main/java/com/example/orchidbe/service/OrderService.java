@@ -7,8 +7,8 @@ import java.util.List;
 public interface OrderService {
     // Define methods for order management
     OrderDTO.OrderResponse createOrder(OrderDTO.OrderRequest order);
-    OrderDTO.OrderResponse getOrderById(Long id);
-    OrderDTO.OrderResponse updateOrder(Long id,OrderDTO.OrderRequest order);
-    void deleteOrder(Long id);
+    OrderDTO.OrderResponse getOrderById(String id);
+    OrderDTO.OrderResponse updateOrder(String id,OrderDTO.OrderRequest order);
+    void deleteOrder(String id);
     List<OrderDTO.OrderResponse> getAllOrders();
 }

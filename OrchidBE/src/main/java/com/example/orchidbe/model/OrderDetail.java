@@ -1,24 +1,25 @@
 package com.example.orchidbe.model;
 
-import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import org.springframework.data.mongodb.core.mapping.DBRef;
+import org.springframework.data.mongodb.core.mapping.Field;
 
-@Entity
-@Table(name="order_details")
+// Không cần @Document vì có thể được embed vào Order
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class OrderDetail {
-    @Id
-    @GeneratedValue(strategy = jakarta.persistence.GenerationType.IDENTITY)
-    private Long id;
-    @Column(name="price", nullable = false)
-    private float price;
-    @Column(name="quantity", nullable = false)
+    @Field("quantity")
     private int quantity;
 
-    @ManyToOne
-    @JoinColumn(name="order_id", nullable = false)
-    private Order order;
+    @Field("unit_price")
+    private double unitPrice;
 
-    @ManyToOne
-    @JoinColumn(name="orchid_id", nullable = false)
+    @Field("subtotal")
+    private double subtotal;
+
+    @DBRef
     private Orchid orchid;
-
 }

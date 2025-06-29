@@ -1,33 +1,35 @@
 package com.example.orchidbe.model;
 
-import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.DBRef;
+import org.springframework.data.mongodb.core.mapping.Field;
 
-@Entity
+@Document(collection = "orchids")
 @Data
 @NoArgsConstructor
 @Builder
 @AllArgsConstructor
-@Table(name="orchids")
 public class Orchid {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long orchidId;
-    @Column(name="is_natural", nullable = false)
-    private boolean isNatural;
-    @Column(name="orchid_decription", nullable = false)
-    private String orchidDecription;
-    @Column(name="orchid_name", nullable = false)
-    private String orchidName;
-    @Column(name="orchid_url", nullable = false)
-    private String orchidUrl;
-    @Column(name="price", nullable = false)
-    private double price;
+    private String orchidId;
 
-    @ManyToOne
-    @JoinColumn(name = "category_id", nullable = false)
-    private Category category;
+    @Field("is_natural")
+    private boolean isNatural;
+
+    @Field("orchid_description")
+    private String orchidDecription;
+
+    @Field("orchid_name")
+    private String orchidName;
+
+    @Field("orchid_url")
+    private String orchidUrl;
+
+    @Field("price")
+    private double price;
 }

@@ -13,12 +13,12 @@ public class OrderDetailServiceImpl implements  OrderDetailService{
     }
 
     @Override
-    public OrderDetailDTO.OrderDetailResponse getOrderDetailById(Long id) {
+    public OrderDetailDTO.OrderDetailResponse getOrderDetailById(String id) {
         return null;
     }
 
     @Override
-    public OrderDetailDTO.OrderDetailResponse getOrderDetail(Long orderId) {
+    public OrderDetailDTO.OrderDetailResponse getOrderDetail(String orderId) {
         return null;
     }
 
@@ -28,17 +28,17 @@ public class OrderDetailServiceImpl implements  OrderDetailService{
     }
 
     @Override
-    public OrderDetailDTO.OrderDetailResponse updateOrderDetail(Long id, OrderDetailDTO.OrderDetailRequest orderDetailRequest) {
+    public OrderDetailDTO.OrderDetailResponse updateOrderDetail(String id, OrderDetailDTO.OrderDetailRequest orderDetailRequest) {
         return null;
     }
 
     @Override
-    public void deleteOrderDetail(Long id) {
+    public void deleteOrderDetail(String id) {
 
     }
 
     @Override
-    public List<OrderDetailDTO.OrderDetailResponse> getOrderDetailsByOrderId(Long orderId) {
+    public List<OrderDetailDTO.OrderDetailResponse> getOrderDetailsByOrderId(String orderId) {
         return List.of();
     }
 }

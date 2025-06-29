@@ -7,9 +7,9 @@ import java.util.List;
 
 public interface RoleService {
 
-     RoleDTO.RoleResponse getRole(Long id);
+     RoleDTO.RoleResponse getRole(String id);
      RoleDTO.RoleResponse insertRole(RoleDTO.RoleRequest role) ;
      List<RoleDTO.RoleResponse> getAllRoles();
-    RoleDTO.RoleResponse updateRole(Long id,RoleDTO.RoleRequest role);
-    void deleteRole(Long id);
+    RoleDTO.RoleResponse updateRole(String id,RoleDTO.RoleRequest role);
+    void deleteRole(String id);
 }

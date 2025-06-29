@@ -20,7 +20,7 @@ public class OrchidController {
     private final OrchidService orchidService;
 
     @GetMapping("/{id}")
-    public ResponseEntity<?> getOrchidById(@PathVariable Long id) {
+    public ResponseEntity<?> getOrchidById(@PathVariable String id) {
         try {
             var orchid = orchidService.getOrchidById(id);
             return ResponseEntity.ok(orchid);
@@ -62,7 +62,7 @@ public class OrchidController {
 
     @PutMapping("/{id}")
     public ResponseEntity<?> updateOrchid(
-            @PathVariable Long id,
+            @PathVariable String id,
             @Valid @RequestBody OrchidDTO.OrchidRequest orchidRequest,
             BindingResult bindingResult) {
 
@@ -81,7 +81,7 @@ public class OrchidController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> deleteOrchid(@PathVariable Long id) {
+    public ResponseEntity<?> deleteOrchid(@PathVariable String id) {
         try {
             orchidService.deleteOrchid(id);
             return ResponseEntity.ok("Orchid deleted successfully");
