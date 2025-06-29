@@ -9,8 +9,8 @@ public class OrchidDTO {
     public static class OrchidResponse {
         private Long id;
         private String name;
-        private String description;
-        private String imageUrl;
+        private String orchidDecription;
+        private String orchidUrl;
         private String categoryName;
         private boolean isNatural;
         private Double price;

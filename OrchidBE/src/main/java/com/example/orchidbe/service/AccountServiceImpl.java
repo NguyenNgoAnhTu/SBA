@@ -3,8 +3,11 @@ package com.example.orchidbe.service;
 import com.example.orchidbe.DTO.AccountDTO;
 import com.example.orchidbe.DTO.RegisterDTO;
 import com.example.orchidbe.model.Account;
+import com.example.orchidbe.model.Role;
 import com.example.orchidbe.repository.AccountRepository;
+import com.example.orchidbe.repository.RoleRepository;
 import jakarta.persistence.EntityNotFoundException;
+import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -15,6 +18,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
+@RequiredArgsConstructor
 public class AccountServiceImpl  implements AccountService {
 
     @Autowired
@@ -24,6 +28,7 @@ public class AccountServiceImpl  implements AccountService {
     @Autowired
     private  PasswordEncoder passwordEncoder;
 
+    private final RoleRepository roleRepository;
 
     @Override
     public AccountDTO.AccountResponse getAccount(Long id) {
@@ -56,21 +61,30 @@ public class AccountServiceImpl  implements AccountService {
     public List<Account> getAll() {
         return accountRepository.findAll();
     }
+
+
     @Override
-    public Account validateLogin(String username, String password) {
-        Account account = accountRepository.findByAccountName(username);
+    public Account validateLogin(String username, String password)  {
+        Account account = accountRepository.findByEmail(username)
+                .orElseThrow(() -> new EntityNotFoundException("Account not found with email: " + username));
         if (account != null && password.equals(account.getPassword())) {
             return account;
         }
         return null;
-    }
-    public Account signup(RegisterDTO register) {
+        }
+    @Override
+        public AccountDTO.AccountResponse signup(RegisterDTO register)  {
+        Role userRole = roleRepository.findByRoleName("ROLE_USER")
+                .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
         Account account =  Account.builder()
-                .accountName(register.getFullName())
-                .email(register.getEmail())
-                .password(passwordEncoder.encode(register.getPassword()))
-                .build();
+                    .accountName(register.getFullName())
+                    .email(register.getEmail())
+                    .password(register.getPassword())
+                    .role(userRole)
+                    .build();
 
-        return accountRepository.save(account);
-    }
+             accountRepository.save(account);
+             modelMapper.map(account, AccountDTO.AccountResponse.class);
+             return modelMapper.map(account, AccountDTO.AccountResponse.class);
+        }
 }

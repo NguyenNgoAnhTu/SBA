@@ -1,26 +1,42 @@
 package com.example.orchidbe.DTO;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
-
+import java.time.LocalDateTime;
+import java.util.List;
 
 public class OrderDTO {
+
+    // Dữ liệu client gửi lên để TẠO một đơn hàng mới
+    @Data
+    public static class CreateOrderRequest {
+        private List<CartItemRequest> items;
+        private String shippingAddress;
+        private String note;
+    }
+
+    // Dữ liệu của một sản phẩm trong giỏ hàng
+    @Data
+    public static class CartItemRequest {
+        private Long orchidId;
+        private int quantity;
+    }
+
+    // Dữ liệu server gửi về để HIỂN THỊ một đơn hàng
     @Data
     public static class OrderResponse {
-        private Long id;
-        private String orderDate;
-        private String status;
-        private String customerName;
-        private String customerEmail;
+        private Long orderId;
+        private LocalDateTime orderDate;
+        private String orderStatus;
+        private Double totalAmount;
+        private String customerName; // Lấy từ Account liên kết
         private String shippingAddress;
+        private String note;
+        private List<OrderDetailDTO.OrderDetailResponse> orderDetails; // Trả về cả chi tiết sản phẩm
     }
+
+    // Dữ liệu client gửi lên để CẬP NHẬT TRẠNG THÁI (dành cho admin)
     @Data
-    public static class OrderRequest {
-        private String orderDate;
+    public static class UpdateStatusRequest {
         private String status;
-        private String customerName;
-        private String customerEmail;
-        private String shippingAddress;
     }
 }

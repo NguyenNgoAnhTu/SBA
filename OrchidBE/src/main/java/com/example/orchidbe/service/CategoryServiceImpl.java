@@ -3,17 +3,25 @@ package com.example.orchidbe.service;
 import com.example.orchidbe.DTO.CategoryDTO;
 import com.example.orchidbe.model.Category;
 import com.example.orchidbe.repository.CategoryRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
-
+@RequiredArgsConstructor
 public class CategoryServiceImpl implements  CategoryService {
-    private CategoryRepository categoryRepository;
+    private final  CategoryRepository categoryRepository;
     @Override
     public Category createCategory(CategoryDTO.CategoryRequest categoryRequest) {
-        return null;
+        if (categoryRepository.existsByCategoryName(categoryRequest.getName())) {
+            throw new IllegalArgumentException("Category with name '" + categoryRequest.getName() + "' already exists");
+        }
+        Category newCategory = new Category();
+        newCategory.setCategoryName(categoryRequest.getName());
+
+        return categoryRepository.save(newCategory);
+
     }
 
     @Override

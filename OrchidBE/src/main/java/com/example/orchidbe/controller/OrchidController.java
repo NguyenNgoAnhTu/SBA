@@ -5,6 +5,7 @@ import com.example.orchidbe.service.OrchidService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
@@ -42,6 +43,7 @@ public class OrchidController {
     }
 
     @PostMapping
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<?> createOrchid(
             @Valid @RequestBody OrchidDTO.OrchidRequest orchidRequest,
             BindingResult bindingResult) {
@@ -61,6 +63,7 @@ public class OrchidController {
     }
 
     @PutMapping("/{id}")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<?> updateOrchid(
             @PathVariable Long id,
             @Valid @RequestBody OrchidDTO.OrchidRequest orchidRequest,
@@ -81,6 +84,7 @@ public class OrchidController {
     }
 
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<?> deleteOrchid(@PathVariable Long id) {
         try {
             orchidService.deleteOrchid(id);
@@ -89,5 +93,9 @@ public class OrchidController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
                     .body("Error deleting orchid: " + e.getMessage());
         }
+    }
+    @GetMapping("/category/{categoryId}")
+    public ResponseEntity<List<OrchidDTO.OrchidResponse>> getOrchidsByCategory(@PathVariable Long categoryId) {
+        return ResponseEntity.ok(orchidService.getOrchidsByCategory(categoryId));
     }
 }
