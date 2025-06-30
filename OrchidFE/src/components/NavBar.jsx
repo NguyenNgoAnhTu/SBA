@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import { useCart } from "../context/CartContext";
+import Swal from 'sweetalert2';
 
 // --- Icons ---
 const CartIcon = () => <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" /></svg>;
@@ -71,12 +72,11 @@ function NavBar() {
             <NavLink to="/home" onClick={() => isMobile && setMenuOpen(false)} className={({ isActive }) => `px-4 py-2 rounded-md font-medium ${isActive ? 'text-indigo-600' : 'text-gray-700 hover:bg-gray-100'}`}>
                 Home
             </NavLink>
+            <NavLink to="/order-history" onClick={() => isMobile && setMenuOpen(false)} className={({ isActive }) => `px-4 py-2 rounded-md font-medium ${isActive ? 'text-indigo-600' : 'text-gray-700 hover:bg-gray-100'}`}>
+                Order History
+            </NavLink>
             {/* Chỉ hiển thị "Manage Orchids" nếu là ADMIN */}
-            {userRole === 'ROLE_ADMIN' && (
-                <NavLink to="/manage-orchids" onClick={() => isMobile && setMenuOpen(false)} className={({ isActive }) => `px-4 py-2 rounded-md font-medium ${isActive ? 'text-indigo-600' : 'text-gray-700 hover:bg-gray-100'}`}>
-                    Manage Orchids
-                </NavLink>
-            )}
+           
         </>
     );
 
@@ -109,12 +109,32 @@ function NavBar() {
                                 <UserIcon />
                             </button>
                             {dropdownOpen && (
-                                <div className="absolute right-0 mt-2 w-48 bg-white border rounded-lg shadow-lg z-50 py-1">
-                                    <Link to="/account" onClick={() => setDropdownOpen(false)} className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">My Account</Link>
-                                    <Link to="/order-history" onClick={() => setDropdownOpen(false)} className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Order History</Link>
-                                    <button onClick={handleLogout} className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Log out</button>
-                                </div>
-                            )}
+    <div className="absolute right-0 mt-2 w-40 bg-white border rounded-xl shadow-lg z-50 py-2">
+        <button
+            onClick={async () => {
+                const result = await Swal.fire({
+                    title: 'Confirm Logout',
+                    text: 'Are you sure you want to log out?',
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#d33',
+                    cancelButtonColor: '#aaa',
+                    confirmButtonText: 'Yes, log out',
+                });
+
+                if (result.isConfirmed) {
+                    handleLogout();
+                }
+            }}
+            className="w-full flex items-center gap-2 px-4 py-2 text-sm text-red-600 hover:bg-red-50 transition rounded-lg"
+        >
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+            </svg>
+            Log out
+        </button>
+    </div>
+)}
                         </div>
                     ) : (
                         <Link to="/login" className="px-4 py-2 rounded-md text-sm font-semibold text-white bg-indigo-600 hover:bg-indigo-700">

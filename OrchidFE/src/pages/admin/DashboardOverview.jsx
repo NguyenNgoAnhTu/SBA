@@ -15,7 +15,7 @@ export default function DashboardOverview() {
             try {
                 // Giả sử bạn có các API để lấy số liệu này
                 const [usersRes, ordersRes] = await Promise.all([
-                    apiService.get('/api/v1/accounts'), // Tạm dùng API có sẵn
+                    apiService.get('/accounts'), // Tạm dùng API có sẵn
                     apiService.get('/api/v1/orders'),
                 ]);
                 const totalRevenue = ordersRes.data.reduce((sum, order) => sum + order.totalAmount, 0);

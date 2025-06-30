@@ -36,6 +36,9 @@ public class DataInitializer implements CommandLineRunner {
         Category wild = categoryRepo.save(new Category(null, "Wild Orchid"));
         Category vanda = categoryRepo.save(new Category(null, "Vanda Orchid"));
         Category cattleya = categoryRepo.save(new Category(null, "Cattleya Orchid"));
+        Category dendrobium = categoryRepo.save(new Category(null, "Dendrobium Orchid"));
+        Category oncidium = categoryRepo.save(new Category(null, "Oncidium Orchid"));
+        Category miltonia = categoryRepo.save(new Category(null, "Miltonia Orchid"));
 
         // Create orchids
         orchidRepo.saveAll(List.of(
@@ -60,7 +63,7 @@ public class DataInitializer implements CommandLineRunner {
                 Orchid.builder()
                         .orchidName("Wild Phi Diep Orchid")
                         .orchidDecription("Original wild orchid collected from mountain forests.")
-                        .orchidUrl("https://lanrungviet.com/wp-content/uploads/2021/06/lan-rung-phi-diep.jpg")
+                        .orchidUrl("/images/phidiep.jpg")
                         .isNatural(true)
                         .price(350000)
                         .category(wild)
@@ -82,7 +85,70 @@ public class DataInitializer implements CommandLineRunner {
                         .isNatural(true)
                         .price(400000)
                         .category(cattleya)
+                        .build(),
+                Orchid.builder()
+                        .orchidName("Golden Dendrobium")
+                        .orchidDecription("Bright golden flowers, often used in ceremonies.")
+                        .orchidUrl("/images/dendrobium.jpg")
+                        .isNatural(true)
+                        .price(200000)
+                        .category(dendrobium)
+                        .build(),
+
+                Orchid.builder()
+                        .orchidName("Fragrant Oncidium")
+                        .orchidDecription("Known as 'Dancing Lady' orchid with sweet fragrance.")
+                        .orchidUrl("/images/oncidium.jpg")
+                        .isNatural(false)
+                        .price(270000)
+                        .category(oncidium)
+                        .build(),
+
+                Orchid.builder()
+                        .orchidName("Miltonia Sunset")
+                        .orchidDecription("Hybrid with beautiful sunset colors, easy to grow.")
+                        .orchidUrl("/images/miltonia.jpg")
+                        .isNatural(false)
+                        .price(300000)
+                        .category(miltonia)
+                        .build(),
+
+//                Orchid.builder()
+//                        .orchidName("Natural Mountain Vanda")
+//                        .orchidDecription("Collected from highland forests, rare Vanda type.")
+//                        .orchidUrl("https://example.com/images/natural-vanda.jpg")
+//                        .isNatural(true)
+//                        .price(500000)
+//                        .category(vanda)
+//                        .build(),
+
+                Orchid.builder()
+                        .orchidName("White Snow Cattleya")
+                        .orchidDecription("Pure white petals, symbolic for purity and grace.")
+                        .orchidUrl("/images/white-cattleya.jpg")
+                        .isNatural(true)
+                        .price(450000)
+                        .category(cattleya)
+                        .build(),
+
+                Orchid.builder()
+                        .orchidName("Phalaenopsis Pink Beauty")
+                        .orchidDecription("Orchid with soft pink petals, highly popular.")
+                        .orchidUrl("/images/pink-phalaenopsis.jpg")
+                        .isNatural(false)
+                        .price(230000)
+                        .category(phalaenopsis)
+                        .build(),
+
+                Orchid.builder()
+                        .orchidName("Wild Jungle Orchid")
+                        .orchidDecription("Unmodified, grows in natural jungle conditions.")
+                        .orchidUrl("/images/wild-jungle.jpg")
+                        .isNatural(true)
+                        .price(480000)
+                        .category(wild)
                         .build()
+
         ));
 
         // Create accounts
@@ -97,6 +163,19 @@ public class DataInitializer implements CommandLineRunner {
                 Account.builder()
                         .accountName("john")
                         .email("user@gmail.com")
+                        .password("123")
+                        .role(userRole)
+                        .build(),
+                Account.builder()
+                        .accountName("alice")
+                        .email("alice@example.com")
+                        .password("123")
+                        .role(userRole)
+                        .build(),
+
+                Account.builder()
+                        .accountName("bob")
+                        .email("bob@example.com")
                         .password("123")
                         .role(userRole)
                         .build()

@@ -48,9 +48,26 @@ public class AccountServiceImpl  implements AccountService {
         return null;
     }
 
+
     @Override
-    public AccountDTO.AccountResponse updateAccount(Long id, AccountDTO.AccountRequest accountRequest) {
-        return null;
+    public AccountDTO.AccountResponse updateAccount(Long id, AccountDTO.AccountUpdateRequest accountRequest) {
+        Account existingAccount = accountRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Account not found with id: " + id));
+
+        // Cập nhật các thông tin cơ bản
+        existingAccount.setAccountName(accountRequest.getAccountName());
+        existingAccount.setEmail(accountRequest.getEmail());
+
+
+        // Cập nhật vai trò
+        if (accountRequest.getRole() != null && !accountRequest.getRole().isEmpty()) {
+            Role role = roleRepository.findByRoleName(accountRequest.getRole().toUpperCase())
+                    .orElseThrow(() -> new EntityNotFoundException("Role not found: " + accountRequest.getRole()));
+            existingAccount.setRole(role);
+        }
+
+        Account updatedAccount = accountRepository.save(existingAccount);
+        return convertToDto(updatedAccount);
     }
 
     @Override
@@ -87,4 +104,15 @@ public class AccountServiceImpl  implements AccountService {
              modelMapper.map(account, AccountDTO.AccountResponse.class);
              return modelMapper.map(account, AccountDTO.AccountResponse.class);
         }
+    private AccountDTO.AccountResponse convertToDto(Account account) {
+        AccountDTO.AccountResponse dto = modelMapper.map(account, AccountDTO.AccountResponse.class);
+        if (account.getRole() != null) {
+            dto.setRole(account.getRole().getRoleName());
+        }
+        // Sửa lại để khớp với DTO: DTO có username, nhưng entity có accountName
+        dto.setAccountName(account.getAccountName());
+        dto.setAccountId(account.getAccountId()); // <<--- THÊM DÒNG NÀY
+        return dto;
+    }
+
 }

@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 public class AccountDTO {
     @Data
     public static class AccountResponse {
+        private Long accountId;
         private String accountName;
         private String email;
         private String role;
@@ -18,4 +19,10 @@ public class AccountDTO {
         private String password;
     }
 
+    @Data
+    public static class AccountUpdateRequest {
+        private String accountName;
+        private String email;
+        private String role;
+    }
 }
